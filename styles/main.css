@@ -4,7 +4,20 @@ body {
     font-family: 'Ubuntu', sans-serif;
 }
 
+button:hover {
+    cursor: pointer;
+    opacity: 0.9;
+}
+
 /* COLOURS START */
+.good {
+    background-color: #00C8CF;
+}
+
+.bad {
+    background-color: #FF9415;
+}
+
 .white {
     background-color: #FFF;
 }
@@ -25,8 +38,16 @@ body {
     background-color: #6F6F6F;
 }
 
+.accent {
+    background-color: #181DE9;
+}
+
 .very-dark {
     background-color: #1C1C1C;
+}
+
+.white-font {
+    color: #FFF;
 }
 
 .very-light-font {
@@ -48,12 +69,30 @@ body {
 .very-dark-font {
     color: #1C1C1C;
 }
+
+.accent-font {
+    color: #181DE9;
+}
 /* COLOURS END */
 
 
+/* FONTS START */
 .system {
     font-family: 'Source Code Pro', monospace;
 }
+/* FONTS END */
+
+.alert {
+    position: fixed;
+    width: 100%;
+    height: 2em;
+    line-height: 2em;
+    top: 3em;
+}
+
+    .alert span {
+        margin: 0 1em;
+    }
 
 .nav {
     width: 100%;
@@ -87,6 +126,11 @@ body {
     .tile .name {
         width: 100%;
         min-height: 1.25em;
+    }
+
+    .tile .name a {
+        text-decoration: none;
+        color: inherit;
     }
 
     .tile .name h2 {
@@ -147,3 +191,27 @@ body {
             .tile .tags div span {
                 padding: 0 0.25em;
             }
+
+.footer {
+    position: fixed;
+    bottom: 20;
+    right: 20;
+}
+
+    .footer form {
+        margin: 0;
+    }
+
+    .footer button {
+        border-radius: 2em;
+        height: 2.5em;
+        width: 2.5em;
+        border: 0;
+        box-shadow: 3px 3px 3px #BABABA;
+    }
+
+    .footer input {
+        margin-right: -0.5em;
+        width: 18em;
+        box-shadow: 2px 2px 3px #BABABA;
+    }

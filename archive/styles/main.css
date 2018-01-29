@@ -1,0 +1,319 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Colour options */
+/*
+light blue      #86CCCC x
+mid blue        #35687B x
+dark blue       #0E3554 x
+red             #EB5848 
+light yellow    #F5B400 
+dark yellow     #F08B1F 
+white           #EEECED x
+
+*/
+
+
+.black {
+    background-color: #0E3554;
+}
+
+.black-text {
+    color: #0E3554;
+}
+
+.white {
+    background-color: #EEECED;
+}
+
+.white-text {
+    color: #EEECED;
+}
+
+.light {
+    background-color: #86CCCC;
+}
+
+.light-text {
+    color: #86CCCC;
+}
+
+.mid {
+    background-color: #35687B;
+}
+
+.mid-text {
+    color: #35687B;
+}
+
+.alert {
+    background-color: #F5B400;
+}
+
+.alert-text {
+    color: #F5B400;
+}
+
+.critical {
+    background-color: #EB5848;
+}
+
+.critical-text {
+    color: #EB5848;
+}
+
+.small {
+    font-size: 0.75em;
+}
+
+.system {
+    font-family: 'Source Code Pro', monospace;
+}
+
+.container {
+    margin: 0 auto;
+    width: 90%;
+}
+
+.nav {
+    width: 100%;
+    height: 3em;
+    line-height: 3em;
+}
+
+    .nav h1 {
+        padding: 0;
+        margin: 0 0.5em;
+    }
+
+.category {
+    margin: 1em 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.tile {
+    width: 25em;
+    min-height: 7.5em;
+    margin: 0.25em;
+    /*padding: 0.25em;*/
+    box-shadow: 4px 4px 3px #5B97A1;
+}
+
+    .tile h3 {
+        margin: 10px 5px;
+        padding: 0;
+        font-weight: normal;
+    }
+
+    .tile table {
+        width: 95%;
+    }
+
+        .tile table th {
+            font-weight: normal;
+            width: 75%;
+        }
+
+        .tags span {
+            padding: 0.25em 0.5em;
+            float: left;
+            margin: 0.15em 0.2em;
+        }
+
+.ball {
+    width: 10px;
+    border-radius: 10px;
+}
+
+.progress {
+    height: 2em;
+    line-height: 2em;
+    overflow: hidden;
+}
+
+.button {
+    margin: 0.5em;
+    padding: 0.2em 1em;
+    max-width: 3.5em;
+    text-align: center;
+}
+
+    .button:hover {
+        background-color: #DA1F2B;
+        cursor: pointer;
+    }
+
+.top {
+    height: 2em;
+}
+
+.title {
+    margin: 0.5em 0;
+    width: 100%;
+    padding: 1em 0;
+}
+
+    .title h2, h3 {
+        margin: 0;
+        padding: 0;
+    }
+
+    .title table {
+        width: 100%;
+    }
+
+    .title table td {
+        padding-left: 1em;
+    }
+
+.body {
+    width: 100%;
+    min-height: 25em;
+    max-height: 50em;
+    overflow-y: auto;
+}
+
+.attachments {
+    height: 2em;
+}
+.attachments ul {
+    margin: 0;
+}
+
+.attachments a {
+    color: #5F72AF;
+}
+
+    .attachments a:hover {
+        text-decoration: underline;
+    }
+
+.attachments li {
+    list-style-type: none;
+    float: left;
+    margin: 0 0.5em;
+}
+
+.controls {
+    width: 100%;
+    padding: 0.5em 0 0.1em 0;
+}
+
+    .controls table {
+        width: 100%;
+    }
+
+    .controls table td {
+        padding: 0.2em 0.5em 0.1em 0.5em;
+    }
+
+    .controls table select, input {
+        width: 100%;
+        height: 2em;
+    }
+
+    .controls .border {
+        border-right: solid 1px #9FA1A7;
+    }
+
+.comments {
+    width: 100%;
+}
+
+    .comments .user {
+        padding: 0.4em 0.45em;
+        border-radius: 1em;
+        font-family: 'Source Code Pro', monospace;
+    }
+
+#comment_preview {
+    background-color: #fff;
+    margin: 0.25em 0;
+    padding: 0.2em;
+    height: 90%;
+    overflow-y: scroll;
+}
+
+/* Markdown formatting START */
+
+.comments a {
+    color: #5F72AF;
+}
+
+    .comments a:hover {
+        text-decoration: underline;
+    }
+
+h1, h2, h3, h4 {
+    margin: 0;
+}
+
+h1 {
+    font-size: 1.5em;
+}
+
+h2 {
+    font-size: 1.35em;
+}
+
+h3 {
+    font-size: 1.2em;
+}
+
+h4 {
+    font-size: 1em;
+}
+
+.comments input {
+    width: 1em;
+}
+
+.comments ul {
+    margin: 0.1em 0;
+}
+
+.comments img {
+    max-height: 5em;
+}
+
+/* Markdown formatting END */
+
+.previous table {
+    width: 100%;
+    margin: 0.5em 0;
+}
+
+    .previous table td {
+        padding: 0.25em 1em;
+    }
+
+    .previous table .narrow {
+        width: 3em;
+        text-align: center;
+    }
+
+.new table {
+    width: 100%;
+    height: 8em;
+    margin: 0 0.25em;
+}
+
+.new_comment {
+    min-width: 80%;
+}
+
+.new textarea {
+    width: 100%;
+    height: 8em;
+}
+
