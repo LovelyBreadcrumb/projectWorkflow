@@ -116,6 +116,7 @@ button:hover {
     align-items: flex-start;
 }
 
+/* INDEX-SPECIFIC START */
 .tile {
     width: 25em;
     min-height: 7.5em;
@@ -215,3 +216,10 @@ button:hover {
         width: 18em;
         box-shadow: 2px 2px 3px #BABABA;
     }
+/* INDEX-SPECIFIC END */
+
+
+/* PROJECTS-SPECIFIC START */
+
+
+/* PROJECTS-SPECIFIC END */

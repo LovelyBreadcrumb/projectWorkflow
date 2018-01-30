@@ -19,26 +19,29 @@
             }
 
             if ( isset($_GET['tag']) ) {
-                $search_string = urldecode($_GET['search']);
-                $tagged_projects = $db->query('SELECT PROJECT_ID FROM tags WHERE TAG_TEXT LIKE("%' .$search_string . '%")');
+                $search_string = urldecode($_GET['tag']);
+                $query = 'SELECT PROJECT_ID FROM tags WHERE TAG_TEXT="' .$search_string . '"';
+                error_log($query);
+                $tagged_projects = $db->query($query);
                 $id_array = array();
                 while ( $project_id = $tagged_projects->fetchArray() ) {
                     array_push($id_array, $project_id[0]);
                 }
                 $search_parameters = implode(', ', $id_array);
-                error_log(' >>> ' . $search_parameters);
                 $search_parameters = ' WHERE PROJECT_ID IN (' . $search_parameters . ')';
             }
             // == FORM SUBMISSION END ==
 
 
             // == MAIN QUERIES START ==
-            $all_projects = $db->query('SELECT PROJECT_ID, PROJECT_NAME FROM projects' . $search_parameters);
+            $query = 'SELECT PROJECT_ID, PROJECT_NAME FROM projects' . $search_parameters;
+            error_log($query);
+            $all_projects = $db->query($query);
             
             // == MAIN QUERIES END ==
         ?>
         <div class="nav very-dark">
-            <h1 class="accent-font">Working Title <span class="white-font">|</span> <span class="medium-font">Projects</span></h1>
+            <h1 class="accent-font">Working Title <span class="white-font">|</span> <span class="medium-font">All Projects</span></h1>
         </div>
         <div class="container">
 
@@ -76,7 +79,7 @@
                                 <div class="tags">';
                     while ( $tag = $all_tags->fetchArray() ) {
                         $tag_text = $tag[0];
-                        echo '<a href="index.php?tag=' . $tag_text . '"><div class="light"><span><i class="fa fa-tag" aria-hidden="true" style="color: #' . stringToColorCode($tag_text) . '"></i> ' . $tag_text  . '</span></div></a>';
+                        echo '<a href="index.php?tag=' . $tag_text . '"><div style="background-color: #' . stringToColorCode($tag_text) . '"><span><i class="fa fa-tag" aria-hidden="true"></i> ' . $tag_text  . '</span></div></a>';
                     }
                     echo '
                                 </div>';
@@ -91,7 +94,7 @@
             <div class="footer">
                 <div id="search" class="search">
                     <form action="index.php" method="get">
-                        <input type="text" name="search" placeholder="Search by title, tag or designer..." value="<?php echo (isset($_GET['search']))? $_GET['search'] : '' ;?>"/>
+                        <input type="text" name="search" placeholder="Search by project title..." value="<?php echo (isset($_GET['search']))? $_GET['search'] : '' ;?>"/>
                         <button class="accent" action="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
                     </form>
                 </div>
