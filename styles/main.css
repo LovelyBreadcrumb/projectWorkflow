@@ -187,10 +187,16 @@ button:hover {
             text-align: center;
             line-height: 2vh;
             font-size: 0.75em;
+            padding: 0.15em 0;
         }
 
             .tile .tags div span {
                 padding: 0 0.25em;
+            }
+
+            .tile .tags a {
+                text-decoration: none;
+                color: inherit;
             }
 
 .footer {
@@ -219,7 +225,45 @@ button:hover {
 /* INDEX-SPECIFIC END */
 
 
-/* PROJECTS-SPECIFIC START */
+/* PROJECT-SPECIFIC START */
+.comments {
+    width: 100%;
+    margin-top: 1em;
+}
 
+.comment {
+    margin-bottom: 0.5em;
+}
 
-/* PROJECTS-SPECIFIC END */
+.comment .data span {
+    padding: 0 0.25em;
+}
+
+.comment .message {
+    margin: 0 0.5em;
+}
+
+.new_comment {
+    margin-top: 1em;
+    height: 4em;
+}
+
+    .new_comment .inputs {
+        width: 95%;
+        max-width: 75em;
+        margin-left: 0.5em;
+    }
+
+        .new_comment .inputs textarea {
+            width: 100%;
+            height: 100%;
+        }
+
+    .new_comment .buttons {
+        float: right;
+    }
+
+    .new_comment .buttons button {
+        float: right;
+    }
+/* PROJECT-SPECIFIC END */

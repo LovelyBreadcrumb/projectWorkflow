@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>Working Title | Projects</title>
+        <title><a href="/" style="text-decoration: none; color: inherit;">Working Title</a> | All Projects</title>
         <?php include '/modules/head.php'; ?>
     </head>
     <body class="very-light">
