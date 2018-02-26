@@ -22,28 +22,40 @@ button:hover {
     background-color: #FFF;
 }
 
+.grey {
+    background-color: #AFB8BD;
+}
+
 .very-light {
-    background-color: #EDEDED;
+    background-color: #ECECEC;
 }
 
 .light {
-    background-color: #BFBFBF;
+    background-color: #D7FFF1;
 }
 
 .medium {
-    background-color: #939393;
+    background-color: #DADADA;
 }
 
 .dark {
-    background-color: #6F6F6F;
+    background-color: #343434;
 }
 
 .accent {
-    background-color: #181DE9;
+    background-color: #FFCC00;
+}
+
+.accent-border {
+    border-top: solid 3px #FFCC00;
 }
 
 .very-dark {
-    background-color: #1C1C1C;
+    background-color: #242424;
+}
+
+.not-quite-that-dark {
+    background-color: #5A5A5A;
 }
 
 .white-font {
@@ -55,23 +67,23 @@ button:hover {
 }
 
 .light-font {
-    color: #BFBFBF;
+    color: #D7FFF1;
 }
 
 .medium-font {
-    color: #939393;
+    color: #DADADA;
 }
 
 .dark-font {
-    color: #6F6F6F;
+    color: #343434;
 }
 
 .very-dark-font {
-    color: #1C1C1C;
+    color: #242424;
 }
 
 .accent-font {
-    color: #181DE9;
+    color: #FFCC00;
 }
 /* COLOURS END */
 
@@ -118,9 +130,9 @@ button:hover {
 
 /* INDEX-SPECIFIC START */
 .tile {
-    width: 25em;
+    width: 20em;
     min-height: 7.5em;
-    margin: 0.25em;
+    margin: 0.5em;
     box-shadow: 4px 4px 3px #D4D4D4;
 }
 
@@ -137,7 +149,7 @@ button:hover {
     .tile .name h2 {
         font-size: 1.2em;
         padding: 0 0.5em;
-        margin: 0;
+        margin: 5px 0 0 0;
         line-height: 1.1em;
     }
 
@@ -156,7 +168,7 @@ button:hover {
         }
 
             .tile .progress div span {
-                padding: 0 5px;
+                padding: 0 8px;
             }
 
     .tile .assigned {
