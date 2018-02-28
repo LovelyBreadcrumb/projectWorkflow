@@ -21,12 +21,14 @@
             
             // == MAIN QUERIES END ==
         ?>
-        <div class="nav very-dark">
-            <h1 class="accent-font"><a href="/" style="text-decoration: none; color: inherit;">Working Title</a> <span class="white-font">|</span> <span class="medium-font">Project #<?php echo sprintf('%04d', $project_id); ?></span></h1>
-        </div>
+        <?php include "modules/nav.php"; ?>
         <div class="container">
 
             <!-- @Dec: Put all your code here -->
+
+            <div style="width: 100%; background-color: #fff; box-shadow: 1px 1px 1px #DCDCDC">
+                test
+            </div>
 
 
             <!-- == COMMENTS START == -->

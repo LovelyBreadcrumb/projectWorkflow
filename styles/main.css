@@ -22,16 +22,12 @@ button:hover {
     background-color: #FFF;
 }
 
-.grey {
-    background-color: #AFB8BD;
-}
-
 .very-light {
     background-color: #ECECEC;
 }
 
 .light {
-    background-color: #D7FFF1;
+    background-color: #AFB8BD;
 }
 
 .medium {
@@ -67,7 +63,7 @@ button:hover {
 }
 
 .light-font {
-    color: #D7FFF1;
+    color: #AFB8BD;
 }
 
 .medium-font {
@@ -118,6 +114,36 @@ button:hover {
         padding: 0;
         margin: 0 0.5em;
     }
+
+.nav-buttons {
+    margin-top: -3em;
+    float: right;
+}
+
+    .nav-buttons ul {
+        margin: 0;
+    }
+
+    .nav-buttons ul li {
+        list-style: none;
+        float: right;
+        margin: 0 0.25em;
+    }
+
+    .nav-buttons span {
+        padding: 0.25em 0.4em;
+    }
+
+        .nav-buttons span:hover {
+            cursor:pointer;
+        }
+
+    .comment_button {
+        padding-left: 1em !important;
+        margin-left: 0.5em;
+        border-left: solid 1px #FFF;
+    }
+
 
 .container {
     margin: 0 auto;
@@ -206,30 +232,35 @@ button:hover {
                 padding: 0 0.25em;
             }
 
-            .tile .tags a {
+            .tile a {
                 text-decoration: none;
                 color: inherit;
             }
 
-.footer {
+                .tile a:hover {
+                    color: #FFCC00;
+                }
+
+.search_menu {
     position: fixed;
-    bottom: 20;
-    right: 20;
+    top: 3em;
+    right: 0.25em;
 }
 
-    .footer form {
-        margin: 0;
+    .search_menu form {
+        margin: 0.25em 0;
     }
 
-    .footer button {
+    .search_menu button {
         border-radius: 2em;
         height: 2.5em;
         width: 2.5em;
         border: 0;
-        box-shadow: 3px 3px 3px #BABABA;
+        box-shadow: 2px 2px 3px #BABABA;
     }
 
-    .footer input {
+    .search_menu input {
+        display: none;
         margin-right: -0.5em;
         width: 18em;
         box-shadow: 2px 2px 3px #BABABA;

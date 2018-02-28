@@ -21,10 +21,21 @@
             if ( isset($_GET['tag']) ) {
                 $search_string = urldecode($_GET['tag']);
                 $query = 'SELECT PROJECT_ID FROM tags WHERE TAG_TEXT="' .$search_string . '"';
-                error_log($query);
                 $tagged_projects = $db->query($query);
                 $id_array = array();
                 while ( $project_id = $tagged_projects->fetchArray() ) {
+                    array_push($id_array, $project_id[0]);
+                }
+                $search_parameters = implode(', ', $id_array);
+                $search_parameters = ' WHERE PROJECT_ID IN (' . $search_parameters . ')';
+            }
+
+            if ( isset($_GET['assigned']) ) {
+                $search_string = urldecode($_GET['assigned']);
+                $query = 'SELECT PROJECT_ID FROM assigned WHERE USER_USERNAME="' .$search_string . '"';
+                $assigned_projects = $db->query($query);
+                $id_array = array();
+                while ( $project_id = $assigned_projects->fetchArray() ) {
                     array_push($id_array, $project_id[0]);
                 }
                 $search_parameters = implode(', ', $id_array);
@@ -39,8 +50,27 @@
             
             // == MAIN QUERIES END ==
         ?>
-        <div class="nav very-dark">
-            <h1 class="accent-font"><a href="/" style="text-decoration: none; color: inherit;">Working Title</a> <span class="white-font">|</span> <span class="medium-font">All Projects</span></h1>
+        <?php include "modules/nav.php"; ?>
+        <div class="search_menu">
+            <div id="search" class="search">
+                <!-- Search by title -->
+                <form action="index.php" method="get">
+                    <input type="text" name="search" placeholder="Search by project title..." value="<?php echo (isset($_GET['search']))? $_GET['search'] : '' ;?>"/>
+                    <button class="accent" action="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+                </form>
+
+                <!-- Search by assigned user -->
+                <form action="index.php" method="get">
+                    <input type="text" name="user" placeholder="Search by user..." value="<?php echo (isset($_GET['user']))? $_GET['user'] : '' ;?>"/>
+                    <button class="accent" action="submit"><i class="fa fa-user" aria-hidden="true"></i></button>
+                </form>
+
+                <!-- Search by tag -->
+                <form action="index.php" method="get">
+                    <input type="text" name="tag" placeholder="Search by tag..." value="<?php echo (isset($_GET['tag']))? $_GET['tag'] : '' ;?>"/>
+                    <button class="accent" action="submit"><i class="fa fa-tag" aria-hidden="true"></i></button>
+                </form>
+            </div>
         </div>
         <div class="container">
 
@@ -71,32 +101,28 @@
                         array_push($status_history_array, $past_status[0]);
                     }
 
-                    error_log(' >> Latest status: ' . end($status_history_array));
-
                     $status_filter = ($project_type=='PRINT')? 'STATUS" OR FLAG_TYPE="PRINT_STATUS' : 'STATUS';
                     $query = 'SELECT FLAG_TEXT FROM flags WHERE FLAG_TYPE="' . $status_filter . '"';
                     
                     $available_status =  $db->query($query);
                     while ( $status = $available_status->fetchArray() ) {
-                        // if ( $status[0] == end($status_history_array) ) {
-                        //     echo '<div title="' . $status[0] . '" class="not-quite-that-dark"><span>' . $status[0] . '</span></div>';
-                        // } else {
-                            if ( in_array($status[0], $status_history_array) ) {
-                                echo '<div title="' . $status[0] . '" class="not-quite-that-dark"></div>';
-                            } else {
-                            echo '<div title="' . $status[0] . '" class="grey"></div>';
-                            }
-                        // } 
+                        if ( in_array($status[0], $status_history_array) ) {
+                            echo '<div title="' . $status[0] . '" class="not-quite-that-dark"></div>';
+                        } else {
+                        echo '<div title="' . $status[0] . '" class="light"></div>';
+                        }
                     }
                     echo '
                                 </div>';
 
                     // -- assigned team members --
                     echo '
-                                <div class="assigned">
-                                    <div><span><i class="fa fa-user" aria-hidden="true"></i>&nbsp;GM</div>
-                                    <div><span><i class="fa fa-user" aria-hidden="true"></i>&nbsp;DJ</div>
-                                </div>';
+                                <div class="assigned">';
+                    $assigned_array = $db->query('SELECT assigned.USER_USERNAME, users.USER_NAME FROM assigned INNER JOIN users ON assigned.USER_USERNAME=users.USER_USERNAME WHERE assigned.PROJECT_ID=' . $project_id);
+                    while ( $assigned = $assigned_array->fetchArray() ) {
+                            echo '<a href="index.php?assigned=' .  $assigned[0] . '"><div><span><i class="fa fa-user" aria-hidden="true"></i>&nbsp;' . $assigned[1] . '</div></a>';
+                        }
+                    echo '      </div>';
 
                     //  -- tags --
                     echo '
@@ -113,14 +139,6 @@
                 // == MAIN LOOP END ==
             ?>
 
-            <div class="footer">
-                <div id="search" class="search">
-                    <form action="index.php" method="get">
-                        <input type="text" name="search" placeholder="Search by project title..." value="<?php echo (isset($_GET['search']))? $_GET['search'] : '' ;?>"/>
-                        <button class="accent" action="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
-                    </form>
-                </div>
-            </div>
         </div>
     </body>
 </html>
