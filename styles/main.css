@@ -248,7 +248,12 @@ button:hover {
 }
 
     .search_menu form {
+        text-align: right;
+    }
+
+    .search {
         margin: 0.25em 0;
+        /*float: right;*/
     }
 
     .search_menu button {
@@ -260,7 +265,6 @@ button:hover {
     }
 
     .search_menu input {
-        display: none;
         margin-right: -0.5em;
         width: 18em;
         box-shadow: 2px 2px 3px #BABABA;

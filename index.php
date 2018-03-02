@@ -30,8 +30,8 @@
                 $search_parameters = ' WHERE PROJECT_ID IN (' . $search_parameters . ')';
             }
 
-            if ( isset($_GET['assigned']) ) {
-                $search_string = urldecode($_GET['assigned']);
+            if ( isset($_GET['user']) ) {
+                $search_string = urldecode($_GET['user']);
                 $query = 'SELECT PROJECT_ID FROM assigned WHERE USER_USERNAME="' .$search_string . '"';
                 $assigned_projects = $db->query($query);
                 $id_array = array();
@@ -46,29 +46,35 @@
 
             // == MAIN QUERIES START ==
             $query = 'SELECT PROJECT_ID, PROJECT_NAME, PROJECT_TYPE FROM projects' . $search_parameters;
+            error_log('>> Query: ' . $query);
             $all_projects = $db->query($query);
             
             // == MAIN QUERIES END ==
         ?>
         <?php include "modules/nav.php"; ?>
         <div class="search_menu">
-            <div id="search" class="search">
+            <div class="search">
                 <!-- Search by title -->
                 <form action="index.php" method="get">
-                    <input type="text" name="search" placeholder="Search by project title..." value="<?php echo (isset($_GET['search']))? $_GET['search'] : '' ;?>"/>
-                    <button class="accent" action="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+                    <input style="display: none" id="search_input" type="text" name="search" placeholder="Search by project title..." value="<?php echo (isset($_GET['search']))? $_GET['search'] : '' ;?>"/>
+                    <button id="search_button" style="display: none" class="button accent" action="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+                    <button id="search_toggle" type="button" class="button accent" onclick="document.getElementById('search_input').style.display='inline-block'; document.getElementById('search_button').style.display='inline-block'; document.getElementById('search_toggle').style.display='none';"><i class="fa fa-search" aria-hidden="true"></i></button>
                 </form>
-
+            </div>
+            <div class="search">
                 <!-- Search by assigned user -->
                 <form action="index.php" method="get">
-                    <input type="text" name="user" placeholder="Search by user..." value="<?php echo (isset($_GET['user']))? $_GET['user'] : '' ;?>"/>
-                    <button class="accent" action="submit"><i class="fa fa-user" aria-hidden="true"></i></button>
+                    <input id="user_input" style="display: none" type="text" name="user" placeholder="Search by user..." value="<?php echo (isset($_GET['user']))? $_GET['user'] : '' ;?>"/>
+                    <button id="user_button" style="display: none" class="button accent" action="submit"><i class="fa fa-user" aria-hidden="true"></i></button>
+                    <button id="user_toggle" type="button" class="button accent" onclick="document.getElementById('user_input').style.display='inline-block'; document.getElementById('user_button').style.display='inline-block'; document.getElementById('user_toggle').style.display='none';"><i class="fa fa-user" aria-hidden="true"></i></button>
                 </form>
-
+            </div>
+            <div class="search">
                 <!-- Search by tag -->
                 <form action="index.php" method="get">
-                    <input type="text" name="tag" placeholder="Search by tag..." value="<?php echo (isset($_GET['tag']))? $_GET['tag'] : '' ;?>"/>
-                    <button class="accent" action="submit"><i class="fa fa-tag" aria-hidden="true"></i></button>
+                    <input id="tag_input" style="display: none" type="text" name="tag" placeholder="Search by tag..." value="<?php echo (isset($_GET['tag']))? $_GET['tag'] : '' ;?>"/>
+                    <button id="tag_button" style="display: none" class="button accent" action="submit"><i class="fa fa-tag" aria-hidden="true"></i></button>
+                    <button id="tag_toggle" type="button" class="button accent"onclick="document.getElementById('tag_input').style.display='inline-block'; document.getElementById('tag_button').style.display='inline-block'; document.getElementById('tag_toggle').style.display='none';"><i class="fa fa-tag" aria-hidden="true"></i></button>
                 </form>
             </div>
         </div>
