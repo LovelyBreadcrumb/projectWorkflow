@@ -11,14 +11,17 @@
 
 
             // == FORM SUBMISSION START ==
+            $show_cancel_button = false;
             $search_parameters = '';
 
-            if ( isset($_GET['search']) ) {
+            if ( isset($_GET['search']) and $_GET['search']!="" ) {
                 $search_string = $_GET['search'];
                 $search_parameters = ' WHERE PROJECT_NAME LIKE("%' . $search_string . '%")';
+
+                $show_cancel_button = true;
             }
 
-            if ( isset($_GET['tag']) ) {
+            if ( isset($_GET['tag']) and $_GET['tag']!="" ) {
                 $search_string = urldecode($_GET['tag']);
                 $query = 'SELECT PROJECT_ID FROM tags WHERE TAG_TEXT="' .$search_string . '"';
                 $tagged_projects = $db->query($query);
@@ -28,9 +31,11 @@
                 }
                 $search_parameters = implode(', ', $id_array);
                 $search_parameters = ' WHERE PROJECT_ID IN (' . $search_parameters . ')';
+
+                $show_cancel_button = true;
             }
 
-            if ( isset($_GET['user']) ) {
+            if ( isset($_GET['user']) and $_GET['user']!="" ) {
                 $search_string = urldecode($_GET['user']);
                 $query = 'SELECT PROJECT_ID FROM assigned WHERE USER_USERNAME="' .$search_string . '"';
                 $assigned_projects = $db->query($query);
@@ -40,15 +45,19 @@
                 }
                 $search_parameters = implode(', ', $id_array);
                 $search_parameters = ' WHERE PROJECT_ID IN (' . $search_parameters . ')';
+
+                $show_cancel_button = true;
             }
             // == FORM SUBMISSION END ==
 
 
             // == MAIN QUERIES START ==
             $query = 'SELECT PROJECT_ID, PROJECT_NAME, PROJECT_TYPE FROM projects' . $search_parameters;
-            error_log('>> Query: ' . $query);
             $all_projects = $db->query($query);
-            
+
+            $all_users = $db->query('SELECT USER_USERNAME, USER_NAME FROM users ORDER BY USER_NAME');
+
+            $all_tags = $db->query('SELECT FLAG_TEXT FROM flags WHERE FLAG_TYPE="TAG" OR FLAG_TYPE="CATEGORY" ORDER BY FLAG_TEXT');
             // == MAIN QUERIES END ==
         ?>
         <?php include "modules/nav.php"; ?>
@@ -56,28 +65,49 @@
             <div class="search">
                 <!-- Search by title -->
                 <form action="index.php" method="get">
-                    <input style="display: none" id="search_input" type="text" name="search" placeholder="Search by project title..." value="<?php echo (isset($_GET['search']))? $_GET['search'] : '' ;?>"/>
+                    <input class="form_input" style="display: none" id="search_input" type="text" name="search" placeholder="Search by project title..." value="<?php echo (isset($_GET['search']))? $_GET['search'] : '' ;?>"/>
                     <button id="search_button" style="display: none" class="button accent" action="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
-                    <button id="search_toggle" type="button" class="button accent" onclick="document.getElementById('search_input').style.display='inline-block'; document.getElementById('search_button').style.display='inline-block'; document.getElementById('search_toggle').style.display='none';"><i class="fa fa-search" aria-hidden="true"></i></button>
+                    <button id="search_toggle" type="button" class="button accent" title="Search by project title" onclick="document.getElementById('search_input').style.display='inline-block'; document.getElementById('search_button').style.display='inline-block'; document.getElementById('search_toggle').style.display='none';"><i class="fa fa-search" aria-hidden="true"></i></button>
                 </form>
             </div>
             <div class="search">
                 <!-- Search by assigned user -->
                 <form action="index.php" method="get">
-                    <input id="user_input" style="display: none" type="text" name="user" placeholder="Search by user..." value="<?php echo (isset($_GET['user']))? $_GET['user'] : '' ;?>"/>
+                    <select name="user" id="user_input" class="form_input" style="display: none">
+                        <option value="">Search by assigned team member</option>
+                        <?php 
+                            while ( $user = $all_users->fetchArray() ) {
+                                echo '<option value="' . $user[0] . '">' . $user[1] . '</option>';
+                            }
+                        ?>
+                    </select>
                     <button id="user_button" style="display: none" class="button accent" action="submit"><i class="fa fa-user" aria-hidden="true"></i></button>
-                    <button id="user_toggle" type="button" class="button accent" onclick="document.getElementById('user_input').style.display='inline-block'; document.getElementById('user_button').style.display='inline-block'; document.getElementById('user_toggle').style.display='none';"><i class="fa fa-user" aria-hidden="true"></i></button>
+                    <button id="user_toggle" type="button" class="button accent" title="Seach by assigend team member" onclick="document.getElementById('user_input').style.display='inline-block'; document.getElementById('user_button').style.display='inline-block'; document.getElementById('user_toggle').style.display='none';"><i class="fa fa-user" aria-hidden="true"></i></button>
                 </form>
             </div>
             <div class="search">
                 <!-- Search by tag -->
                 <form action="index.php" method="get">
-                    <input id="tag_input" style="display: none" type="text" name="tag" placeholder="Search by tag..." value="<?php echo (isset($_GET['tag']))? $_GET['tag'] : '' ;?>"/>
+                    <select name="tag" id="tag_input" class="form_input" style="display: none">
+                        <option value="">Search by tag</option>
+                        <?php 
+                            while ( $tag = $all_tags->fetchArray() ) {
+                                echo '<option value="' . $tag[0] . '">' . $tag[0] . '</option>';
+                            }
+                        ?>
+                    </select>
                     <button id="tag_button" style="display: none" class="button accent" action="submit"><i class="fa fa-tag" aria-hidden="true"></i></button>
-                    <button id="tag_toggle" type="button" class="button accent"onclick="document.getElementById('tag_input').style.display='inline-block'; document.getElementById('tag_button').style.display='inline-block'; document.getElementById('tag_toggle').style.display='none';"><i class="fa fa-tag" aria-hidden="true"></i></button>
+                    <button id="tag_toggle" type="button" title="Search by tag" class="button accent"onclick="document.getElementById('tag_input').style.display='inline-block'; document.getElementById('tag_button').style.display='inline-block'; document.getElementById('tag_toggle').style.display='none';"><i class="fa fa-tag" aria-hidden="true"></i></button>
+                </form>
+            </div>
+            <div class="search" <?php echo ($show_cancel_button)? '' : 'style="display: none"' ; ?>>
+                <!-- Clear search filters -->
+                <form action="index.php" method="get">
+                    <a href="index.php"><button title="Clear search filters" id="tag_toggle" type="button" class="button medium"><i class="fa fa-times" aria-hidden="true"></i></button></a>
                 </form>
             </div>
         </div>
+
         <div class="container">
 
             <?php

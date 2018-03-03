@@ -15,7 +15,9 @@
                     </div>';
         }
 
-    $me = get_current_user();
+    $my_username = get_current_user();
+    $my_name = $db->query('SELECT USER_NAME FROM users WHERE USER_USERNAME="' . $my_username . '"');
+    $my_name = $my_name->fetchArray()[0];
 
     function stringToColorCode($str) {
         $code = dechex(crc32($str));

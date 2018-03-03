@@ -1,7 +1,7 @@
 <?php 
 
     // Comment @mentions
-    $mention_array = $db->query('SELECT PROJECT_ID, COMMENT_DATE, COMMENT_CONTENT FROM comments WHERE COMMENT_CONTENT LIKE("%@' . $me . '%") AND COMMENT_DISMISSED="FALSE"');
+    $mention_array = $db->query('SELECT PROJECT_ID, COMMENT_DATE, COMMENT_CONTENT FROM comments WHERE (COMMENT_CONTENT LIKE("%@' . $my_username . '%") OR COMMENT_CONTENT LIKE("%@' . $my_name . '%")) AND COMMENT_DISMISSED="FALSE"');
     $mention_count = 0;
     while ( $mention = $mention_array->fetchArray() ) {
         $mention_count = $mention_count + 1;
@@ -21,6 +21,21 @@
     }
 
 ?>
+<script type="text/javascript">
+    showdown.setFlavor('github');
+    showdown.setOption('openLinksInNewWindow', 'true');
+    showdown.setOption('ghMentionsLink', 'http://localhost:1001/project.php?id={u}');
+    showdown.setOption('tasklists', 'true');
+    showdown.setOption('strikethrough', 'true');
+    
+    function convert(source, target) {
+        var converter = new showdown.Converter();
+        markdownContent = document.getElementById(source).value;
+        htmlContent = converter.makeHtml(markdownContent);
+        document.getElementById(target).innerHTML = htmlContent;
+    }
+</script>
+
 <div class="nav very-dark">
     <h1 class="accent-font"><a href="/" style="text-decoration: none; color: inherit;">Working Title</a> <span class="white-font">|</span> <span class="medium-font">All Projects</span></h1>
     <div class="nav-buttons">

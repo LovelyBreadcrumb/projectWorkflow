@@ -264,10 +264,13 @@ button:hover {
         box-shadow: 2px 2px 3px #BABABA;
     }
 
-    .search_menu input {
+    .search_menu .form_input {
         margin-right: -0.5em;
         width: 18em;
         box-shadow: 2px 2px 3px #BABABA;
+        border-style: none;
+        padding: 0.1em 0 0.1em 0.2em;
+        background-color: #FBFBFB;
     }
 /* INDEX-SPECIFIC END */
 
