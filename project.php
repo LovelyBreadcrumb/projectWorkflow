@@ -26,8 +26,14 @@
 
             <!-- @Dec: Put all your code here -->
 
-            <div style="width: 100%; background-color: #fff; box-shadow: 1px 1px 1px #DCDCDC">
-                test
+            <div class="tile white" style="width: 100%">
+                
+                <div class="accent-border">
+                    <a href="project.php?id=' .  $project_id . '">
+                        <h2>Test</h2>
+                    </a>
+                </div>
+
             </div>
 
 

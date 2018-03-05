@@ -11,11 +11,11 @@ button:hover {
 
 /* COLOURS START */
 .good {
-    background-color: #00C8CF;
+    background-color: #24B0FF;
 }
 
 .bad {
-    background-color: #FF9415;
+    background-color: #FF7E00;
 }
 
 .white {
@@ -96,6 +96,7 @@ button:hover {
     height: 2em;
     line-height: 2em;
     top: 3em;
+    left: 0;
 }
 
     .alert span {

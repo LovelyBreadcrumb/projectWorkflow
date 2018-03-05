@@ -15,6 +15,8 @@
                     </div>';
         }
 
+    date_default_timezone_set('Europe/London');
+
     $my_username = get_current_user();
     $my_name = $db->query('SELECT USER_NAME FROM users WHERE USER_USERNAME="' . $my_username . '"');
     $my_name = $my_name->fetchArray()[0];
