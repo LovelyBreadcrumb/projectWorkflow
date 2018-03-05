@@ -37,11 +37,25 @@
         ?>      
     </div>
     <div class="new_comment">
+        <span id="add_comment_links">Leave a <span onclick="document.getElementById('write_comment').style.display='block'; document.getElementById('add_comment_links').style.display='none'">comment</span> or attach a <span onclick="document.getElementById('attach_file').style.display='block'; document.getElementById('add_comment_links').style.display='none'">file</span></span>
+
         <div class="inputs">
-            <textarea name="message_content"></textarea>
-            <div class="buttons">
-                <button>Submit</button>
-            </div>
+            <form method="post" id="write_comment" style="display:none;">
+                <div class="note">You can format your comments with <a href="https://guides.github.com/features/mastering-markdown/" target="_blank"><em>Markdown</em></a></div>
+                <textarea name="message_content"></textarea>
+                <div class="buttons">
+                    <span onclick="document.getElementById('write_comment').style.display='none'; document.getElementById('add_comment_links').style.display='block'">Cancel</span>
+                    <button>Submit</button>
+                </div>
+            </form>
+
+            <form method="post" id="attach_file" style="display:none;">
+                <input type="file">
+                <div class="buttons">
+                    <span onclick="document.getElementById('attach_file').style.display='none'; document.getElementById('add_comment_links').style.display='block'">Cancel</span>
+                    <button>Attach</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

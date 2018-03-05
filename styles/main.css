@@ -275,10 +275,12 @@ button:hover {
 /* INDEX-SPECIFIC END */
 
 
-/* PROJECT-SPECIFIC START */
+/* COMMENT-SPECIFIC START */
 .comments {
     width: 100%;
     margin-top: 1em;
+    padding-top: 0.5em;
+    border-top: solid 1px #A8A8A8;
 }
 
 .comment {
@@ -293,16 +295,35 @@ button:hover {
     margin: 0 0.5em;
 }
 
+    .comment .message p {
+        margin: 0;
+    }
+
 .new_comment {
     margin-top: 1em;
-    height: 4em;
+    padding-top: 0.5em;
+    height: 6em;
+    border-top: solid 1px #A8A8A8;
 }
 
-    .new_comment .inputs {
-        width: 95%;
-        max-width: 75em;
-        margin-left: 0.5em;
+    #add_comment_links span {
+        text-decoration: underline;
     }
+
+    #add_comment_links span:hover {
+        cursor: pointer;
+    }
+
+    .new_comment .inputs {
+        margin-top: 1em;
+        width: 100%;
+    }
+
+        .new_comment .inputs .note {
+            float: right;
+            margin-top: -1em;
+            font-size: 0.75em;
+        }
 
         .new_comment .inputs textarea {
             width: 100%;
@@ -310,10 +331,19 @@ button:hover {
         }
 
     .new_comment .buttons {
-        float: right;
+        margin: 0.75em 0;
     }
 
-    .new_comment .buttons button {
-        float: right;
-    }
-/* PROJECT-SPECIFIC END */
+        .new_comment .buttons button {
+            margin-left: 1em;
+        }
+
+        .new_comment .buttons span {
+            text-decoration: underline;
+            font-size: 0.9em;
+        }
+
+        .new_comment .buttons span:hover {
+            cursor: pointer;
+        }
+/* COMMENT-SPECIFIC END */
