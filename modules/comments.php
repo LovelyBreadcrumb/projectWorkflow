@@ -85,7 +85,7 @@
             <form method="post" id="write_comment" style="display:none;">
                 <div class="note">You can format your comments with <a href="https://guides.github.com/features/mastering-markdown/" target="_blank"><em>Markdown</em></a></div>
                 <textarea name="message_content"></textarea>
-                <div class="buttons">
+                <div class="confirm_cancel_buttons">
                     <span onclick="document.getElementById('write_comment').style.display='none'; document.getElementById('add_comment_links').style.display='block'">Cancel</span>
                     <button>Submit</button>
                 </div>
