@@ -192,6 +192,7 @@ button:hover {
     width: 100%;
     height: 80%;
     overflow-y: auto;
+    border: solid 1px #A9A9A9;
 }
 
 #new_body_markdown {
@@ -199,7 +200,8 @@ button:hover {
 }
 
 #new_body_html {
-    background-color: #F6F6F6; /* DEBUG */
+    width: 99.7%;
+    height: 79.5%;
 }
 
 .popup .close_button {
@@ -212,7 +214,12 @@ button:hover {
     color: #FFCC00;
 }
 
-.popup .confirm_cancel_buttons {
+.popup .left {
+    float: left;
+    margin: -0.5em 0 0 0.5em;
+}
+
+.popup .right {
     float: right;
     margin: -0.5em 0.5em 0 0;
 }
