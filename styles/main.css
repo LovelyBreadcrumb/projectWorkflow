@@ -345,6 +345,32 @@ button:hover {
     }
 /* INDEX-SPECIFIC END */
 
+/* PROJECT SPECIFIC START */
+.summary_table {
+    height: 5em; 
+    width: 100%;
+    border-collapse: collapse;
+}
+
+    .summary_table tr, .summary_table td {
+        border-right: 1px solid #cecece;
+    }
+
+    .summary_table td {
+        overflow-y: auto;
+    }
+
+    .summary_table .icons {
+        float: left;
+        margin: 0 0.5em;
+        font-size: 0.8em;
+    }
+
+        .summary_table .icons span {
+            margin-left: 0.25em;
+        }
+
+/* PROJECT SPECIFIC END */
 
 /* COMMENT-SPECIFIC START */
 .comments {
