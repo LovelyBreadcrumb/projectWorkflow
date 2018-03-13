@@ -370,6 +370,14 @@ button:hover {
             margin-left: 0.25em;
         }
 
+    .add {
+        text-decoration: underline;
+    }
+    
+    .add:hover {
+        cursor: pointer;
+    }
+
 /* PROJECT SPECIFIC END */
 
 /* COMMENT-SPECIFIC START */

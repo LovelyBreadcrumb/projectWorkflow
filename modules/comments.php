@@ -1,6 +1,6 @@
 <?php
     if ( isset($_POST['message_content']) ) {
-        $datestamp = date('Y-d-m H:i:s', time());
+        $datestamp = date('Y-m-d H:i:s', time());
         $new_comment = $_POST['message_content'];
         if ( $new_comment!='' ) {
             $new_comment = str_replace('"', "'", $new_comment);
@@ -15,7 +15,7 @@
     }
 
     if ( isset($_FILES['new_file']) ) {
-        $datestamp = date('Y-d-m H:i:s', time());
+        $datestamp = date('Y-m-d H:i:s', time());
         error_log('>>> Attachment');
 
         $file_name = basename($_FILES['new_file']['name']);
@@ -59,7 +59,19 @@
             while ( $comment = $comment_array->fetchArray() ) {
                 $comment_id = intval($comment[0]);
                 $comment_type = $comment[1];
-                $comment_type_phrase = ($comment_type == 'comment')? 'left a comment' : 'attached a file' ;
+                switch ($comment_type) {
+                    case 'file':
+                        $comment_type_phrase = 'attached a file';
+                        break;
+
+                    case 'system':
+                        $comment_type_phrase = 'made a change';
+                        break;
+                    
+                    default:
+                        $comment_type_phrase = 'left a comment';
+                        break;
+                }
                 $comment_by = $comment[2];
                 $comment_date = $comment[3];
                 $comment_content = stripslashes($comment[4]);
