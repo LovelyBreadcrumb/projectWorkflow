@@ -40,6 +40,15 @@
         }
     }
 
+    if ( isset($_POST['dismiss_comment']) ) {
+        $success = $db->exec('UPDATE comments SET COMMENT_DISMISSED="' . date('Y-m-d H:i:s') . '" WHERE COMMENT_ID=' . intval($_POST['dismiss_comment']));
+        if ( !$success ) {
+            echo '<div id="alert" class="alert bad" onclick="document.getElementById(\'alert\').style.display=\'none\';">
+                        <span><strong>Database error:</strong> Failed to dismiss comment alert, please reload the page and try again.</span>
+                    </div>';
+        }
+    }
+
     $comment_array = $db->query('SELECT COMMENT_ID, COMMENT_TYPE, users.USER_NAME, COMMENT_DATE, COMMENT_CONTENT, COMMENT_DISMISSED FROM comments INNER JOIN users ON comments.COMMENT_BY==users.USER_USERNAME WHERE PROJECT_ID=' . $project_id . ' ORDER BY COMMENT_DATE ASC');
 
 ?>
@@ -59,7 +68,10 @@
                 $dismiss = '';
                 if ( $comment_dismissed == "FALSE" ) {
                     if ( strpos($comment_content, '@' . $my_username) !== false or strpos($comment_content, '@' . $my_name) !== false ) {
-                        $dismiss = '<span title="Dismiss notification"><i class="fas fa-bell-slash"></i></span>';
+                        $dismiss = '<span class="dismiss" title="Dismiss notification" onclick="document.getElementById(\'dismiss_' . $comment_id . '\').submit()"><i class="fas fa-bell-slash"></i></span>
+                            <form style="display: none;" id="dismiss_' . $comment_id . '" method="post">
+                            <input type="hidden" name="dismiss_comment" value="' . $comment_id . '">
+                            </form>';
                     }
                 }
 
@@ -93,7 +105,7 @@
 
             <form method="post" id="attach_file" enctype="multipart/form-data" style="display:none;">
                 <input name="new_file" type="file">
-                <div class="buttons">
+                <div class="confirm_cancel_buttons">
                     <span onclick="document.getElementById('attach_file').style.display='none'; document.getElementById('add_comment_links').style.display='block'">Cancel</span>
                     <button>Attach</button>
                 </div>

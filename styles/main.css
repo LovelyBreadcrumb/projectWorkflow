@@ -380,6 +380,11 @@ button:hover {
     border-top: solid 1px #A8A8A8;
 }
 
+.dismiss:hover {
+    cursor: pointer;
+    color: #FFCC00;
+}
+
 .comment {
     margin-bottom: 0.5em;
 }

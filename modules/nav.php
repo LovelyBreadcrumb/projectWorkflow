@@ -1,7 +1,7 @@
 <?php 
 
     // Comment @mentions
-    $mention_array = $db->query('SELECT PROJECT_ID, COMMENT_DATE, COMMENT_CONTENT FROM comments WHERE (COMMENT_CONTENT LIKE("%@' . $my_username . '%") OR COMMENT_CONTENT LIKE("%@' . $my_name . '%")) AND COMMENT_DISMISSED="FALSE"');
+    $mention_array = $db->query('SELECT comments.PROJECT_ID, projects.PROJECT_NAME, COMMENT_DATE, COMMENT_CONTENT, users.USER_NAME FROM comments INNER JOIN projects ON projects.PROJECT_ID = comments.PROJECT_ID INNER JOIN users ON users.USER_USERNAME = comments.COMMENT_BY WHERE (COMMENT_CONTENT LIKE("%@' . $my_username . '%") OR COMMENT_CONTENT LIKE("%@' . $my_name . '%")) AND COMMENT_DISMISSED="FALSE"');
     $mention_count = 0;
     while ( $mention = $mention_array->fetchArray() ) {
         $mention_count = $mention_count + 1;
@@ -78,14 +78,59 @@
                 </div> <!-- /right -->
             </div>
         </form>
-    </div> <!-- /popup -->
+    </div> <!-- /new_popup -->
+
+    <div class="popup accent-border" id="mention_popup" style="display: none;">
+        <div class="name">
+            <h2>@Mentions</h2>
+            <span class="close_button" onclick="document.getElementById('popup_background').style.display='none'; document.getElementById('mention_popup').style.display='none'"><i class="fas fa-times"></i></span>
+        </div>
+        <div class="body">
+            <?php 
+                if ( $mention_count > 0 ) {
+                    echo '<table>
+                            <tr>
+                                <td>Project</td>
+                                <td>Comment</td>
+                            </tr>';
+
+                    while ( $comment = $mention_array->fetchArray() ) {
+                        $comment_alert_id = $comment[0];
+                        $comment_alert_name = $comment[1];
+                        $comment_alert_date = $comment[2];
+                        $comment_alert_content = $comment[3];
+                        $comment_alert_by = $comment[4];
+                        
+                        echo '<tr>
+                                <td><a href="project.php?id=' . $comment_alert_id . '">' . $comment_alert_name . '</td>
+                                <td>
+                                    <div class="comment">
+                                        <div class="data system">
+                                            ' . $comment_alert_by . ' left a comment - ' . $comment_alert_date . '
+                                        </div>
+                                        <div class="message">
+                                            ' . $comment_alert_content . '
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>';
+
+                    }
+
+                    echo '</table>';
+                } else {
+                    echo '<p>When someome mentions you by name or username (e.g. @' . $my_name . ' or @' . $my_username . ') in a comment, the comment will appear here.';
+                }
+            ?>
+        </div>
+    </div> <!-- /mention_popup -->
 </div> <!-- /popup-background -->
 
 <div class="nav very-dark">
     <h1 class="accent-font"><a href="/" style="text-decoration: none; color: inherit;">Working Title</a> <span class="white-font">|</span> <span class="medium-font">All Projects</span></h1>
     <div class="nav-buttons">
     	<ul>
-    		<li><span class="comment_button accent-font"><i class="<?php echo $mention_icon; ?>" title="<?php echo $mention_message; ?>" aria-hidden="true"></i></span></li>
+    		<li><span class="comment_button accent-font"><i class="<?php echo $mention_icon; ?>" title="<?php echo $mention_message; ?>" aria-hidden="true" onclick="document.getElementById('mention_popup').style.display='block'; document.getElementById('popup_background').style.display='flex'"></i></span></li>
     		<li><span class="accent-font" onclick="document.getElementById('new_popup').style.display='block'; document.getElementById('popup_background').style.display='flex'"><i class="fas fa-plus" aria-hidden="true" title="New project"></i></span></li>
     		<li><span class="medium-font"><i class="fa fa-chart-line" aria-hidden="true" title="Coming soon: Reports"></i></span></li>
     		<li><span class="medium-font"><i class="fa fa-share-square" aria-hidden="true" title="Coming soon: Export summary"></i></span></li>
